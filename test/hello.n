@@ -1,0 +1,32 @@
+main() {
+    // this is a comment
+    print("Hello, World!");
+}
+
+/*
+* multiline comment
+*/
+
+/*
+
+class Sample {
+    public Data = 123;
+
+    int data = 123; // private
+
+    Sample() {
+        // constructor
+    }
+
+    int func() {
+        // do smt
+        return 0;
+    }
+}
+
+let sample = new Sample();
+Sample sample;
+sample = new Sample();
+sample.Data = 321;
+
+*/
