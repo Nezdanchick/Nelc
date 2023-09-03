@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Nelc;
 
 public class Project
@@ -18,11 +20,11 @@ public class Project
     {
         ProjectPath = path;
         if (!Directory.Exists(path))
-            Directory.CreateDirectory($"{ProjectPath}");
+            Create();
         Config = new Config($"{ProjectPath}/project.cfg");
     }
 
-    public void Create()
+    private void Create()
     {
         Directory.CreateDirectory($"{ProjectPath}/{SourceDirectory}");
         File.WriteAllText($"{ProjectPath}/{MainFile}", HelloWorldProgram);
@@ -32,16 +34,29 @@ public class Project
     }
     public void Build()
     {
+        string executable = Config.Load<string>("executable");
+
         Directory.CreateDirectory($"{ProjectPath}/{BinaryDirectory}");
         Directory.CreateDirectory($"{ProjectPath}/{ObjectDirectory}");
 
         string[] sourceFiles = Directory.GetFiles($"{ProjectPath}/{SourceDirectory}", "*.n", SearchOption.AllDirectories);
 
-        Compiler.Run(sourceFiles);
+        Compiler.Build(sourceFiles);
+
+        string bash = "" +
+        "#!/bin/bash\n" +
+        "echo Hello, World!";
+
+        File.WriteAllText($"{ProjectPath}/{BinaryDirectory}/{executable}", bash);
     }
     public void Run()
     {
+        string executable = Config.Load<string>("executable");
 
+        Process process = new();
+        process.StartInfo.FileName = "bash"; // TODO replace bash exec with compiling
+        process.StartInfo.Arguments = $"{ProjectPath}/{BinaryDirectory}/{executable}";
+        process.Start();
     }
     public void Clean()
     {

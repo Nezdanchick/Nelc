@@ -3,11 +3,10 @@
 string[] tests = Directory.GetFiles("test", "*.n");
 
 if (args.Length > 0) // have args
-    Compiler.Run(args);
+    Compiler.Build(args);
 else
-    Compiler.Run(tests);
+    Compiler.Build(tests);
 
 var hello = new Project("bin/hello_world");
-hello.Create();
 hello.Build();
 hello.Run();
