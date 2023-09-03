@@ -7,6 +7,5 @@ if (args.Length > 0) // have args
 else
     Compiler.Build(tests);
 
-var hello = new Project("bin/hello_world");
-hello.Build();
-hello.Run();
+Console.WriteLine("first.n: ");
+Compiler.Build("test/first.n");

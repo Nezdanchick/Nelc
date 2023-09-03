@@ -11,4 +11,7 @@ public class Token
         Type = type;
         Content = content;
     }
+
+    public override string ToString() =>
+        $"{Type}: {Content}";
 }
